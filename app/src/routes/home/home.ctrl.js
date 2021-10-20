@@ -1,14 +1,41 @@
 "use strict";
 
-const hello = (req, res) => {
-    res.render("home/index");
+const output = {
+    home: (req, res) => {
+        res.render("home/index");
+    },
+    login: (req, res) => {
+        res.render("home/login");
+    },
+}
+
+const users = {
+    id: ["lhs041107", "임현성", "토토"],
+    psword: ["1234", "1234", "123456"]
 };
 
-const login = (req, res) => {
-    res.render("home/login");
+const prosess = {
+    login: (req, res) => {
+        const id = req.body.id,
+        psword = req.body.psword;
+
+    if (users.id.includes(id)) {
+        const idx = users.id.indexOf(id);
+        if (users.psword[idx] === psword) {
+            return res.json({
+                success: true,
+            });
+        }
+    }
+
+    return res.json({
+        success: false,
+        msg: "Login Success",
+    })
+    },
 };
 
-module.exports ={
-    hello,
-    login
+    module.exports = {
+        output,
+        prosess,
 };
